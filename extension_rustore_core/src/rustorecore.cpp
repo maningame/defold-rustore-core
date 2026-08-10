@@ -564,6 +564,14 @@ static void ProcessTwoParam(QueueCallbackItemTwoParams* item)
     }
 }
 
+static dmExtension::Result FinalizeExtension(dmExtension::Params* params)
+{
+    ChannelCallbackManager::Instance()->Clear();
+    QueueCallbackManager::Instance()->Clear();
+
+    return dmExtension::RESULT_OK;
+}
+
 static dmExtension::Result UpdateExtension(dmExtension::Params* params)
 {
     auto queue = QueueCallbackManager::Instance()->GetExexuteQueueCallback();
@@ -584,7 +592,7 @@ static dmExtension::Result UpdateExtension(dmExtension::Params* params)
     return dmExtension::RESULT_OK;
 }
 
-DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, AppInitializeExtension, AppFinalizeExtension, InitializeExtension, UpdateExtension, nullptr, nullptr)
+DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, AppInitializeExtension, AppFinalizeExtension, InitializeExtension, UpdateExtension, nullptr, FinalizeExtension)
 
 extern "C"
 {

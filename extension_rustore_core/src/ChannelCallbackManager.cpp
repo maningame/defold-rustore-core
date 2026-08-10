@@ -17,13 +17,28 @@ std::vector<dmScript::LuaCallbackInfo*> ChannelCallbackManager::FindLuaCallbacks
 
 	for (const auto& callback : _callbacks)
 	{
-		if (std::strcmp(callback->channel, channel) == 0)
+		if (callback->channel == channel)
 		{
 			result.push_back(callback->callback);
 		}
 	}
 
 	return result;
+}
+
+void ChannelCallbackManager::Clear()
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+
+	for (const auto& item : _callbacks)
+	{
+		if (item->callback != nullptr)
+		{
+			dmScript::DestroyCallback(item->callback);
+		}
+	}
+
+	_callbacks.clear();
 }
 
 ChannelCallbackManager* ChannelCallbackManager::Instance()

@@ -25,6 +25,14 @@ std::queue<std::shared_ptr<BaseQueueCallbackItem>> QueueCallbackManager::GetExex
 	return executeQueue;
 }
 
+void QueueCallbackManager::Clear()
+{
+	std::lock_guard<std::mutex> lock(_mutex);
+
+	std::queue<std::shared_ptr<BaseQueueCallbackItem>> empty;
+	_queue.swap(empty);
+}
+
 QueueCallbackManager* QueueCallbackManager::Instance()
 {
 	static QueueCallbackManager instance;

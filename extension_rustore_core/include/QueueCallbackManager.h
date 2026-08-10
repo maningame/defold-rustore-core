@@ -37,7 +37,8 @@ namespace RuStoreSDK
 	public:
 		void PushQueueCallback(std::shared_ptr<BaseQueueCallbackItem> item);
 		std::queue<std::shared_ptr<BaseQueueCallbackItem>> GetExexuteQueueCallback(int max = -1);
-		
+		void Clear();
+
 		static QueueCallbackManager* Instance();
 	};
 }

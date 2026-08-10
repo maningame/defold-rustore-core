@@ -3,12 +3,13 @@
 #include <dmsdk/sdk.h>
 #include <vector>
 #include <mutex>
+#include <string>
 
 namespace RuStoreSDK
 {
 	struct ChannelCallbackItem
 	{
-		const char* channel;
+		const std::string channel;
 		dmScript::LuaCallbackInfo* callback;
 
 		ChannelCallbackItem(const char* ch, dmScript::LuaCallbackInfo* cb) : channel(ch), callback(cb) {}
@@ -23,6 +24,7 @@ namespace RuStoreSDK
 		public:
 		void AddChannelCallback(std::shared_ptr<ChannelCallbackItem> item);
 		std::vector<dmScript::LuaCallbackInfo*> FindLuaCallbacksByChannel(const char* channel);
+		void Clear();
 
 		static ChannelCallbackManager* Instance();
 	};
