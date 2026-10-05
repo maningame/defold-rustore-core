@@ -3,6 +3,7 @@
 #include <dmsdk/sdk.h>
 #include <vector>
 #include <mutex>
+#include <memory>
 #include <string>
 
 namespace RuStoreSDK

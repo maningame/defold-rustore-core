@@ -10,15 +10,14 @@
 |---|---|
 | Версия core | `10.5.0` |
 | Источник | `extension_rustore_core` из официальных плагинов RuStore на GitFlic, `master` от 08.09.2026 |
-| Платформы | только Android |
+| Платформы | Android; на остальных — пустой модуль, чтобы проект собирался в редакторе |
 
 ## Подключение
 
-Строкой в `[project] dependencies` Android-цели — в `platforms/<цель>/platform.settings`, не в общем
-`game.project`: вне Android ядро не компилируется.
+Строкой в `[project] dependencies` Android-цели — в `platforms/<цель>/platform.settings`:
 
 ```ini
-dependencies#N = https://github.com/maningame/defold-rustore-core/archive/refs/tags/10.5.0.zip
+dependencies#N = https://github.com/maningame/defold-rustore-core/archive/refs/tags/10.5.0-1.zip
 ```
 
 - Defold не тянет зависимости библиотек сам: core прописывают в игре рядом с каждым модулем RuStore.
@@ -43,6 +42,9 @@ end)
   Lua-строку, которую GC освобождал. Канал теперь копируется в `std::string`, а `FinalizeExtension` очищает
   подписки и очередь сообщений.
 - В `build.gradle` объявлен gson: им пользуется jar ядра, раньше gson приходил только из модулей.
+- Ядро собирается на всех платформах. У RuStore JNI-код открыт для любой платформы, и проект с ядром не
+  собирался в редакторе; теперь он под `DM_PLATFORM_ANDROID`, а вне Android `rustorecore` — пустая таблица:
+  вызовы держат за проверкой платформы.
 
 ## Обновление с GitFlic
 

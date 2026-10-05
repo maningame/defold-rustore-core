@@ -2,13 +2,15 @@
 #define LIB_NAME "RuStoreCore"
 #define MODULE_NAME "rustorecore"
 
-#if defined(DM_PLATFORM_ANDROID)
-
-#include "RuStoreChannelListener.h"
+#include <dmsdk/sdk.h>
 #include "ChannelCallbackManager.h"
+#include "QueueCallbackManager.h"
+#include "RuStoreChannelListener.h"
 #include "AndroidJavaObject.h"
 
 using namespace RuStoreSDK;
+
+#if defined(DM_PLATFORM_ANDROID)
 
 static void GetJavaCoreInstance(JNIEnv* env, AndroidJavaObject* instance)
 {
@@ -505,8 +507,11 @@ static dmExtension::Result AppInitializeExtension(dmExtension::AppParams* params
 static dmExtension::Result InitializeExtension(dmExtension::Params* params)
 {
     LuaInit(params->m_L);
+
+#if defined(DM_PLATFORM_ANDROID)
     InitDefoldPlayer();
     InitRuStoreCallbacks();
+#endif
     
     return dmExtension::RESULT_OK;
 }
@@ -594,6 +599,8 @@ static dmExtension::Result UpdateExtension(dmExtension::Params* params)
 
 DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, AppInitializeExtension, AppFinalizeExtension, InitializeExtension, UpdateExtension, nullptr, FinalizeExtension)
 
+#if defined(DM_PLATFORM_ANDROID)
+
 extern "C"
 {
     JNIEXPORT jobject JNICALL Java_ru_rustore_defold_core_wrappers_DefoldPlayerWrapper_NativeOnActivityRequest(JNIEnv* env, jobject obj)
@@ -601,3 +608,5 @@ extern "C"
         return dmGraphics::GetNativeAndroidActivity();
     }
 }
+
+#endif

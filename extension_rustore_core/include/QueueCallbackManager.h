@@ -2,6 +2,8 @@
 
 #include <queue>
 #include <mutex>
+#include <memory>
+#include <string>
 
 namespace RuStoreSDK
 {

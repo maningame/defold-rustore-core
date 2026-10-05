@@ -1,8 +1,11 @@
 #pragma once
 
 #include <dmsdk/sdk.h>
-#include <dmsdk/dlib/android.h>
 #include "QueueCallbackManager.h"
+
+#if defined(DM_PLATFORM_ANDROID)
+
+#include <dmsdk/dlib/android.h>
 
 namespace RuStoreSDK
 {
@@ -24,3 +27,5 @@ namespace RuStoreSDK
 		static RuStoreChannelListener* Instance();
 	};
 }
+
+#endif

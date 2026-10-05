@@ -1,5 +1,7 @@
 #include "AndroidJavaObject.h"
 
+#if defined(DM_PLATFORM_ANDROID)
+
 using namespace RuStoreSDK;
 
 AndroidJavaObject::AndroidJavaObject()
@@ -21,3 +23,5 @@ void AndroidJavaObject::Free(JNIEnv* env)
 		obj = nullptr;
 	}
 }
+
+#endif
