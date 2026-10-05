@@ -1,0 +1,7 @@
+{
+  "project": "rustore-defold-pay",
+  "path": "pay_example/extension_rustore_core",
+  "commit": "628b24b51ad874a8d6636a668773a752a93952ea",
+  "ref": "master",
+  "version": "10.5.0"
+}

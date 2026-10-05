@@ -9,7 +9,7 @@
 | | |
 |---|---|
 | Версия core | `10.5.0` |
-| Источник | `extension_rustore_core` из официальных плагинов RuStore на GitFlic, `master` от 08.09.2026 |
+| Источник | `extension_rustore_core` из rustore-defold-pay, `master` от 08.09.2026 (`628b24b`); у review и appupdate ядро то же |
 | Платформы | Android; на остальных — пустой модуль, чтобы проект собирался в редакторе |
 
 ## Подключение
@@ -48,12 +48,21 @@ end)
 
 ## Обновление с GitFlic
 
-1. Склонировать любой плагин RuStore (`git clone https://gitflic.ru/project/rustore/rustore-defold-pay.git`),
-   версия ядра — `core` в его `versions.json`.
-2. Сравнить его `*_example/extension_rustore_core` с нашей папкой и перенести изменения RuStore, сохранив
-   отличия выше.
-3. Коммит `build: rustore core <версия>`, тег — версия core. Наша правка поверх той же версии — тег
-   `<версия>-1`, `<версия>-2`.
+Скриптом `tools/rustore.js` из клона defold-kb рядом с этой репой; по шагам — скилл `/rustore-update`.
+
+```
+node tools/rustore.js check                   # что нового у RuStore
+node tools/rustore.js update core             # папка с GitFlic поверх наших отличий
+node tools/rustore.js verify --bob <bob.jar>  # сборка под Linux, Windows, macOS и Android
+```
+
+Откуда снята папка — `gitflic.json`. Отличия от GitFlic скрипт переносит трёхсторонним слиянием, конфликт —
+только там, где RuStore поменял те же строки. Тег — версия SDK, наша правка поверх той же версии —
+`<версия>-1`, `<версия>-2`.
+
+Ядро одинаковое во всех плагинах RuStore; `check` предупредит, если разойдётся, — тогда
+`update core --from <проект с самым новым ядром>`. После нового тега ядра — `relink`: ссылки модулей
+на него в README и `game.project`.
 
 ## Лицензия
 
